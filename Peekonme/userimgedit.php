@@ -33,12 +33,18 @@
                     <table align="center">
                         <?php
 //                          $sql = "SELECT * FROM game WHERE user_name = \"" . $username . "\"";
-							$sql = "SELECT * FROM game ";
-                            if ($result = mysqli_query($connection, $sql)) {
-                                while ($row = mysqli_fetch_assoc($result)) {
+//							$sql = "SELECT * FROM game ";
+
+							$sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = \"" . $username . "\"";
+							
+                            if ($result = mysqli_query($connection, $sql)) 
+							{
+                                while ($row = mysqli_fetch_assoc($result)) 
+								{
                                     echo '<tr>';
-                                    echo '<td style="padding: 5;"><img src="' . $row['imagePath'] . '" height="50px"/></td>';
-                                    echo '<td style="padding: 5;"> '.$row['Title'].' </td>';
+//                                  echo '<td style="padding: 5;"><img src="' . $row['imagePath'] . '" height="50px"/></td>';
+                                    echo '<td style="padding: 5;">Game ID: '.$row['GameID'].'</td>';
+									echo '<td style="padding: 5;">Stock: '.$row['Stock'].' </td>';
                                     echo '<td style="padding: 5;"> '
                                     . '     <a class="btn btn-primary" type="button" href="imgedit.php?id='. $row['GameID'].'">
                                                 Edit <span class="glyphicon glyphicon-edit"></span>

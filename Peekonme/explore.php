@@ -15,7 +15,9 @@
         <link rel="stylesheet" href="css/main.css" />
 
     </head>
+    
     <?php include 'header.inc.php'; ?>
+    
     <body>
         <div class="container-fluid" style="margin-top: 4em;">
             <?php
@@ -41,7 +43,8 @@
                 <!-- Carousel indicators -->
                 <ol class="carousel-indicators">
                     <?php
-                    for ($i = 0; $i < $count; $i++) {
+                    for ($i = 0; $i < $count; $i++) 
+					{
                         echo '<li data-target="#myCarousel" data-slide-to="' . $i . '"';
                         if ($i == 0)
                             echo ' class="active"';
@@ -49,31 +52,39 @@
                     }
                     ?>
                 </ol>   
+                
                 <!-- Carousel items -->
                 <div class="carousel-inner">
                     <?php
                     $count2 = 0;
                     $sql3 = "SELECT * FROM game ORDER BY GameID DESC";
-                    if ($result3 = mysqli_query($connection, $sql3)) {
-                        while ($row3 = mysqli_fetch_assoc($result3)) {
-                            if ($count2 == 5) {
+                    if ($result3 = mysqli_query($connection, $sql3)) 
+					{
+                        while ($row3 = mysqli_fetch_assoc($result3)) 
+						{
+                            if ($count2 == 5) 
+							{
                                 break;
                             }
-                            if ($count2 == 0) {
+                            if ($count2 == 0) 
+							{
                                 echo '<div class="active item">';
-                            } else {
+                            } else 
+							{
                                 echo '<div class="item">';
                             }
-							
-//							Default was at 50%. Temp Fix for the larger than normal image size							
-//							echo '<img class="center-block" style="width: 50%" src="' . $row3['imagePath'] . '"/>';
-                            echo '<img class="center-block" style="width: 25%" src="' . $row3['imagePath'] . '"/>';
+/*							
+							Default was at 50%. Temp Fix for the larger than normal image size							
+							echo '<img class="center-block" style="width: 50%" src="' . $row3['imagePath'] . '"/>';
+*/                            
+							echo '<img class="center-block" style="width: 25%" src="' . $row3['imagePath'] . '"/>';
                             echo '</div>';
                             $count2++;
                         }
                     }
                     ?>
                 </div>
+                
                 <!-- Carousel nav -->
                 <a class="carousel-control left" href="#myCarousel" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left"></span>
@@ -106,5 +117,3 @@
         <?php include 'footer.inc.php'; ?>
     </body>
 </html>
-
-

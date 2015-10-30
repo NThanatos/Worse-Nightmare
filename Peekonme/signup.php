@@ -30,7 +30,7 @@
 	
 				$unameErr = $pword1Err = $pword2Err = $emailErr = "";
 	
-				$unamevalid = $pword1valid = $pword2valid = $policyvalid = $emailvalid = "";
+				$unamevalid = $pword1valid = $pword2valid = $emailvalid = "";
 	
 				if ($_SERVER["REQUEST_METHOD"] == "POST") 
 				{
@@ -104,7 +104,24 @@
 						$emailvalid = false;
 					} else 
 					{
-							$emailvalid = true;
+						$sql = "SELECT Email FROM user";
+						if ($result = mysqli_query($connection, $sql)) 
+						{
+							$emailvalid = true; //Needed when there is no entry in the table yet
+							while ($row = mysqli_fetch_assoc($result)) 
+							{
+								if ($row['Email'] == $email) 
+								{
+									$emailErr = "Email had been taken";
+									$emailvalid = false;
+									break;
+								} else 
+								{
+									$emailErr = "";
+									$emailvalid = true;
+								}
+							}
+						}
 					}
 	
 					//If all valid it will goes to welcome.php
@@ -114,9 +131,10 @@
 						$salt = bin2hex(mcrypt_create_iv(12, MCRYPT_DEV_URANDOM));
 						$hashpwd = hash('sha256', $pword1 . $salt);
 						$sql = "INSERT INTO user (UserID,Hashed_Password,Salt,Email) VALUES (?,?,?,?)";
+						
 						if ($statement = mysqli_prepare($connection, $sql)) 
 						{
-							mysqli_stmt_bind_param($statement, 'ssss', $uname, $hashpwd, $salt,$email);
+							mysqli_stmt_bind_param($statement, 'ssss', $uname, $hashpwd, $salt, $email);
 							mysqli_stmt_execute($statement);
 						}
 	
@@ -168,11 +186,7 @@
                                    ?>" required>
                         </div>
                     </div>
-                    
-                    
-                    
-                    
-                    
+
                     <div class=" form-group <?php
                     if ($emailvalid) 
 					{
@@ -195,16 +209,12 @@
                         </div>
                     </div>
 
-                    
-                    
-                    
-                    
-                    
-                    
                     <div class=" form-group <?php
-                    if ($pword1valid) {
+                    if ($pword1valid) 
+					{
                         echo $validbox;
-                    } if ($pword1Err != "") {
+                    } if ($pword1Err != "") 
+					{
                         echo $invalidbox;
                     }
                     ?>">
@@ -212,17 +222,21 @@
                         <div class="col-sm-6">
                             <input class="form-control" type="password" name="pword1" id="pword1"
                                    placeholder="<?php
-                                   if ($pword1Err != "") {
+                                   if ($pword1Err != "") 
+								   {
                                        echo $pword1Err;
                                    }
                                    ?>" required
                                    pattern="^\w{8,}$" title="Password must at least 8 alphanumeric characters">
                         </div>
                     </div>
+                    
                     <div class=" form-group <?php
-                    if ($pword2valid) {
+                    if ($pword2valid) 
+					{
                         echo $validbox;
-                    } if ($pword2Err != "") {
+                    } if ($pword2Err != "") 
+					{
                         echo $invalidbox;
                     }
                     ?>">
@@ -230,7 +244,8 @@
                         <div class="col-sm-6">
                             <input class="form-control" type="password" name="pword2" id="pword2"
                                    placeholder="<?php
-                                   if ($pword2Err != "") {
+                                   if ($pword2Err != "") 
+								   {
                                        echo $pword2Err;
                                    }
                                    ?>" required>
@@ -251,6 +266,3 @@
 
 </body>
 </html>
-
-
-

@@ -1,0 +1,21 @@
+Bug:
+
+-	Deactiviate account cannot delete when the account has entries in other 		table. Due to how the DB is setup i guess
+
+Functionality:
+
+-	Buy Button
+-	Set Stocks to SUM for calcaluation
+-	My Listed Item Tab: need to rework to display something else
+- 	Edit Tab: need to rework to display perhaps the game and stock the seller 		is selling
+-	Upload Tab: MIGHT need to rework also. Depend on what information we want 		user to input for their game
+-	Settings Tab: Need to thing what other function to put in. 
+-	Deactivate account has no confirmation once click
+-	Game Review Information
+-	Seller Review Information
+
+Nice to have but not important:
+
+-	Change index.php background image to something that suit the theme
+-	Change signup.php picture and word to suit the theme
+-	Login and forgetPassword to change the image to suit the theme
